@@ -1,6 +1,6 @@
 {
-  "name": "T2 PTS Module",
-  "short_name": "T2 PTS",
+  "name": "T2 mTBI Module",
+  "short_name": "T2 mTBI",
   "icons": [{
     "src": "images/icons/star_128.png",
       "sizes": "128x128",
@@ -24,6 +24,6 @@
     }],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#E64818",
-  "theme_color": "#F8C023"
+  "background_color": "#00BCD4",
+  "theme_color": "#E64818"
 }
