@@ -18,6 +18,7 @@ ns.svg = null;
 
 ns.create = function(el, props, state) {
 	ns.width = state.width;
+  ns.chart_w  = ns.width;
    var scales = ns._scales(el,state.domain);
 	var gauge_h = 60;
 
@@ -83,7 +84,7 @@ ns.create = function(el, props, state) {
 
 	svg.append("g")
 		.append("text")
-	  .attr("x", this.chart_w / 2)
+	  .attr("x", ns.width / 2)
 	  .attr("y", text_margins.top )
 	  .attr("text-anchor",'middle')
 	  .text( "Moderate" );
@@ -94,7 +95,7 @@ ns.create = function(el, props, state) {
 	svg.append("g")
 		.append("text")
 		.classed("rightPrcnt", true )
-	  .attr("x", this.chart_w )
+	  .attr("x", ns.width )
 	  .attr("y", text_margins.top )
 		.attr("text-anchor", "end")
 	  .text( "High" );

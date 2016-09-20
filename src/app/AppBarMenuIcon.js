@@ -6,6 +6,8 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import { Link } from 'react-router';
+import Divider from 'material-ui/Divider';
+
 const AppBarMenuIcon = ({paths, submenu, parent}) => {
   if (paths.current.level > 0) {
     if (parent) {
@@ -21,10 +23,12 @@ const AppBarMenuIcon = ({paths, submenu, parent}) => {
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         >
-        <MenuItem key="0" primaryText={paths.current.name} containerElement={<Link to={paths.current.pathname} />} />
+        
         {submenu.map((item) => (
            <MenuItem key={item.id} primaryText={item.name} containerElement={<Link to={item.pathname} />} />
         ))}
+        <Divider />
+        <MenuItem key="0" primaryText={'App Hub'} href="https://jlightfoot2.github.io/ad-pwa/build/#/apps" />
 
       </IconMenu>);
   }
