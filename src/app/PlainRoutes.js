@@ -73,9 +73,9 @@ function changeObjectKeys (trgt, src, ignoreKeys = []) { // TODO rename or just 
 }
 const manifest = {
   1: (state) => (state),
-  2: (state) => (state) => (!state.videos ? state : {...state, videos: undefined}),
   3: (state) => (state) => ({...state, navigation: undefined}),
-  4: (state) => (state) => ({...state, videos: undefined})
+  5: (state) => (state) => ({...state, videos: undefined}),
+  6: (state) => (state) => ({...state, videoIds: undefined})
 };
 
 const sagaMiddleware = createSagaMiddleware();
@@ -129,7 +129,7 @@ export default class AppProvider extends React.Component {
   }
 
   componentWillMount () {
-    persistStore(store, {keyPrefix: 'reduxPresistAdModuleAlcDrug'}, () => {
+    persistStore(store, {keyPrefix: 'reduxPresistAdModuleMtbi'}, () => {
       setTimeout(() => {
         this.setState({ rehydrated: true });
       }, 300);
