@@ -4,7 +4,7 @@ import {checkIsOnline} from '../actions';
 
 // Our worker Saga: will perform the async increment task
 function* checkOnlineStatus() {
-	const defaultDelay = 5000;
+	const defaultDelay = 20000;
 	while (true) {
 
 		yield call(delay,defaultDelay);

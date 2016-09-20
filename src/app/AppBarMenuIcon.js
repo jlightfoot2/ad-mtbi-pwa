@@ -23,7 +23,7 @@ const AppBarMenuIcon = ({paths, submenu, parent}) => {
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         >
-        
+
         {submenu.map((item) => (
            <MenuItem key={item.id} primaryText={item.name} containerElement={<Link to={item.pathname} />} />
         ))}
