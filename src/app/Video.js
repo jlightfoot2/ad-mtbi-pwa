@@ -1,6 +1,12 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+const styles = {
+  video: {
+    width: '100%',
+    height: 'auto'
+  }
+};
 class videoViewer extends Component {
   componentWillMount () {
     var {video} = this.props;
@@ -8,7 +14,7 @@ class videoViewer extends Component {
   }
   render () {
     var {video, isOnline} = this.props;
-    var onlineVideo = <video src={video.src} poster={video.img} controls >
+    var onlineVideo = <video style={styles.video} src={video.src} poster={video.img} controls>
       Sorry, your browser doesn't support embedded videos.
     </video>;
 
