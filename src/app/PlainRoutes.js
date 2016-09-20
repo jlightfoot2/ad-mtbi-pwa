@@ -74,7 +74,8 @@ function changeObjectKeys (trgt, src, ignoreKeys = []) { // TODO rename or just 
 const manifest = {
   1: (state) => (state),
   2: (state) => (state) => (!state.videos ? state : {...state, videos: undefined}),
-  3: (state) => (state) => ({...state, navigation: undefined})
+  3: (state) => (state) => ({...state, navigation: undefined}),
+  4: (state) => (state) => ({...state, videos: undefined})
 };
 
 const sagaMiddleware = createSagaMiddleware();
