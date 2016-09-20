@@ -25,7 +25,7 @@ const manifest = {
   6: (state) => (state) => ({...state, videoIds: undefined}),
   9: (state) => ({...state, app: undefined}),
   // sorting bug in modue (will be fixed soon)
-  95: (state) => (state) => ({...state, videos: undefined})
+  96: (state) => (state) => ({...state, videos: undefined})
 };
 
 const sagaMiddleware = createSagaMiddleware();
