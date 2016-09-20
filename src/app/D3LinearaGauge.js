@@ -27,7 +27,7 @@ var Gauge = React.createClass({
   getChartState: function () {
     return {
       data: this.props.result,
-      domain: {x: [15, 87], y: [0, 100]},
+      domain: {x: [this.props.minScore, this.props.maxScore], y: [0, 100]},
       width: this.props.width || 500
     };
   },

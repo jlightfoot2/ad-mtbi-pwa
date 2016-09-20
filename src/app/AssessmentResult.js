@@ -58,7 +58,9 @@ const mapStateToProps = (state) => {
   return {
     result: state.assessment.result,
     resultDetails: state.assessment.resultDetails,
-    device: state.device
+    device: state.device,
+    maxScore: 85 + 1,
+    minScore: 0 - 1
   };
 };
 export default connect(

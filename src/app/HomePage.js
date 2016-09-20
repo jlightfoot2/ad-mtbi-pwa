@@ -28,7 +28,7 @@ const styles = {
 const categories = [
   {id: 1, title: 'Videos', path: '/main/videos', featured: true, img: require('../images/video-481821_640.png')},
   {id: 2, title: 'Assessments', path: '/main/assessment', featured: false, img: require('../images/2000px-Checklist_Noun_project_5166.svg.png')},
-  {id: 3, title: 'PTS Library', path: '/main/library', featured: false, img: require('../images/2000px-Book_font_awesome.svg.png')}
+  {id: 3, title: 'Library', path: '/main/library', featured: false, img: require('../images/2000px-Book_font_awesome.svg.png')}
 ];
 
 class HomePage extends Component {
