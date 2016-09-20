@@ -16,7 +16,7 @@ export const apiVideos = [
 		id: 1,
 	    img: require('../../images/mtbi-what-is-tbi.jpg'),
 	    src: 'http://brightcove.vo.llnwd.net/e1/uds/pd/1041122098001/1041122098001_1695629707001_TBI-1.mp4',
-	    title: 'Introduction to TBI Blark??',
+	    title: 'Intro to TBI',
 	    author: 'T2',	
 	    url: '',
 	    featured: true,
