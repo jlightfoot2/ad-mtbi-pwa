@@ -31,7 +31,7 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__DEVTOOLS__': false
+      '__DEVTOOLS__': true
     }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
