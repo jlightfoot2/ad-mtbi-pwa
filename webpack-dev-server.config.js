@@ -30,6 +30,9 @@ const config = {
     filename: 'app.js'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      '__DEVTOOLS__': false
+    }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling.

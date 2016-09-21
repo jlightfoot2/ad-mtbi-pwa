@@ -63,7 +63,10 @@ const history = syncHistoryWithStore(hashHistory, store);
                 // have been added to the cache.
                 // It's the perfect time to display a 'New content is available; please refresh.'
                 // message in the page's interface.
-                console.log('New or updated content is available.');
+                if (__DEVTOOLS__) {
+                  console.log('New or updated content is available.');
+                }
+
                 appStore.dispatch(updatesAvailable(true));
                 appStore.dispatch(updateUserNotified(false));
               } else {
@@ -73,25 +76,33 @@ const history = syncHistoryWithStore(hashHistory, store);
                 appStore.dispatch(updatesAvailable(false));
                 appStore.dispatch(updateUserNotified(true));
                 appStore.dispatch(showFlashMessage('Content is now available offline!'));
-                console.log('Content is now available offline!');
+                if (__DEVTOOLS__) {
+                  console.log('Content is now available offline!');
+                }
               }
               break;
 
             case 'redundant':
-              console.error('The installing service worker became redundant.');
+              if (__DEVTOOLS__) {
+                console.error('The installing service worker became redundant.');
+              }
               break;
           }
         };
       };
     }).catch(function (e) {
-      console.error('Error during service worker registration:', e);
+      if (__DEVTOOLS__) {
+        console.error('Error during service worker registration:', e);
+      }
     });
   }
 })(store);
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
+if (__DEVTOOLS__) {
+  store.subscribe(() => {
+    console.log(store.getState());
+  });
+}
 
 const rootRoute = [
   {
