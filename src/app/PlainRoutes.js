@@ -26,7 +26,8 @@ const manifest = {
   100: (state) => ({...state, videos: undefined}),
   101: (state) => ({...state, videoIds: undefined}),
   102: (state) => ({...state, app: undefined}),
-  103: (state) => ({...state, navigation: undefined})
+  103: (state) => ({...state, navigation: undefined}),
+  106: (state) => ({...state, videos: undefined})
 };
 
 let reducerKey = 'migrations';
