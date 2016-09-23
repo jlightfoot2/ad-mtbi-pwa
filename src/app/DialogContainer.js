@@ -2,7 +2,7 @@ import Dialog from './Dialog';
 import { connect } from 'react-redux';
 import React from 'react';
 
-import {updateUserNotified} from './actions/app';
+import {updateUserNotified} from 'local-t2-app-redux/lib/actions';
 
 const stateToProps = (state, ownProps) => {
   return {

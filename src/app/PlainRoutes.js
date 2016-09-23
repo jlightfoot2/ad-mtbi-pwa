@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import appHub from './reducers';
 import {showFlashMessage} from './actions';
-import {updatesAvailable, updateUserNotified, cacheStatusChange} from './actions/app';
+import {updatesAvailable, updateUserNotified, cacheStatusChange} from 'local-t2-app-redux/lib/actions';
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
 
@@ -19,13 +19,10 @@ import navigationConfig from './navigationConfig';
 import createMigration from 'redux-persist-migrate';
 
 const manifest = {
-  1: (state) => (state),
-  3: (state) => (state) => ({...state, navigation: undefined}),
-  5: (state) => (state) => ({...state, videos: undefined}),
-  6: (state) => (state) => ({...state, videoIds: undefined}),
-  9: (state) => ({...state, app: undefined}),
-  // sorting bug in modue (will be fixed soon)
-  93: (state) => (state) => ({...state, videos: undefined})
+  100: (state) => ({...state, videos: undefined}),
+  101: (state) => ({...state, videoIds: undefined}),
+  102: (state) => ({...state, app: undefined}),
+  103: (state) => ({...state, navigation: undefined})
 };
 
 const sagaMiddleware = createSagaMiddleware();
