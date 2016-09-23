@@ -1,8 +1,8 @@
 import StatusIcon from './StatusIcon.js';
 import { connect } from 'react-redux';
-import {checkIsOnline} from './actions';
+import {checkIsOnline} from 'local-t2-app-redux/lib/actions';
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     onlineStatus: state.app.connectivity.status
   };

@@ -7,16 +7,20 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import appHub from './reducers';
 import {showFlashMessage} from './actions';
-import {updatesAvailable, updateUserNotified, cacheStatusChange} from 'local-t2-app-redux/lib/actions';
+import {appActions, appSaga} from 'local-t2-app-redux';
+
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
 
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
-import sagaRoot from './sagas';
+
 import {navigationCreateMiddleware} from 'local-t2-navigation-redux';
 import navigationConfig from './navigationConfig';
 import createMigration from 'redux-persist-migrate';
+import createSagaMiddleware from 'redux-saga';
+
+const sagaMiddleware = createSagaMiddleware();
+var {updatesAvailable, updateUserNotified, cacheStatusChange} = appActions;
 
 const manifest = {
   100: (state) => ({...state, videos: undefined}),
@@ -25,7 +29,6 @@ const manifest = {
   103: (state) => ({...state, navigation: undefined})
 };
 
-const sagaMiddleware = createSagaMiddleware();
 let reducerKey = 'migrations';
 
 const migration = createMigration(manifest, reducerKey);
@@ -41,7 +44,9 @@ const store = createStore(
           ),
     persistEnhancer
   );
-sagaMiddleware.run(sagaRoot);
+sagaMiddleware.run(appSaga);
+
+
 const history = syncHistoryWithStore(hashHistory, store);
 
 (function (appStore) {
@@ -83,11 +88,13 @@ const history = syncHistoryWithStore(hashHistory, store);
               if (__DEVTOOLS__) {
                 console.error('The installing service worker became redundant.');
               }
+              appStore.dispatch(updateUserNotified(true));
               break;
           }
         };
       };
     }).catch(function (e) {
+      appStore.dispatch(updateUserNotified(true));
       if (__DEVTOOLS__) {
         console.error('Error during service worker registration:', e);
       }

@@ -11,10 +11,10 @@ const stateToProps = (state, ownProps) => {
   };
 };
 
-const stateToDispatch = (state, ownProps) => {
+const stateToDispatch = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      updateUserNotified(true);
+      dispatch(updateUserNotified(true));
       setTimeout(function () {
         window.location.reload();
       }, 1000);
