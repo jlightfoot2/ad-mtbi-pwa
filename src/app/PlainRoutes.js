@@ -27,7 +27,9 @@ const manifest = {
   101: (state) => ({...state, videoIds: undefined}),
   102: (state) => ({...state, app: undefined}),
   103: (state) => ({...state, navigation: undefined}),
-  106: (state) => ({...state, videos: undefined})
+  106: (state) => ({...state, videos: undefined}),
+  108: (state) => ({...state, app: undefined}),
+  109: (state) => ({...state, videos: undefined})
 };
 
 let reducerKey = 'migrations';
@@ -46,7 +48,6 @@ const store = createStore(
     persistEnhancer
   );
 sagaMiddleware.run(appSaga);
-
 
 const history = syncHistoryWithStore(hashHistory, store);
 
@@ -70,13 +71,13 @@ const history = syncHistoryWithStore(hashHistory, store);
                   console.log('New or updated content is available.');
                 }
 
-                appStore.dispatch(updatesAvailable(true));
+                appStore.dispatch(updatesAvailable(true,'new content'));
                 appStore.dispatch(updateUserNotified(false));
               } else {
                 // At this point, everything has been precached.
                 // It's the perfect time to display a 'Content is cached for offline use.' message.
                 appStore.dispatch(cacheStatusChange(true));
-                appStore.dispatch(updatesAvailable(false));
+                appStore.dispatch(updatesAvailable(false,'avail offline'));
                 appStore.dispatch(updateUserNotified(true));
                 appStore.dispatch(showFlashMessage('Content is now available offline!'));
                 if (__DEVTOOLS__) {
@@ -90,12 +91,14 @@ const history = syncHistoryWithStore(hashHistory, store);
                 console.error('The installing service worker became redundant.');
               }
               appStore.dispatch(updateUserNotified(true));
+              appStore.dispatch(updatesAvailable(false,'redundant'));
               break;
           }
         };
       };
     }).catch(function (e) {
       appStore.dispatch(updateUserNotified(true));
+      appStore.dispatch(updatesAvailable(false,' catch'));
       if (__DEVTOOLS__) {
         console.error('Error during service worker registration:', e);
       }
