@@ -2,7 +2,7 @@ import Dialog from './Dialog';
 import { connect } from 'react-redux';
 import React from 'react';
 
-import {updateUserNotified} from './actions/app';
+import {updateUserNotified} from 'local-t2-app-redux/lib/actions';
 
 const stateToProps = (state, ownProps) => {
   return {
@@ -11,10 +11,10 @@ const stateToProps = (state, ownProps) => {
   };
 };
 
-const stateToDispatch = (state, ownProps) => {
+const stateToDispatch = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      updateUserNotified(true);
+      dispatch(updateUserNotified(true));
       setTimeout(function () {
         window.location.reload();
       }, 1000);

@@ -7,29 +7,29 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import appHub from './reducers';
 import {showFlashMessage} from './actions';
-import {updatesAvailable, updateUserNotified, cacheStatusChange} from './actions/app';
+import {appActions, appSaga} from 'local-t2-app-redux';
+
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
 
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
-import sagaRoot from './sagas';
+
 import {navigationCreateMiddleware} from 'local-t2-navigation-redux';
 import navigationConfig from './navigationConfig';
 import createMigration from 'redux-persist-migrate';
-
-const manifest = {
-  1: (state) => (state),
-  3: (state) => (state) => ({...state, navigation: undefined}),
-  5: (state) => (state) => ({...state, videos: undefined}),
-  6: (state) => (state) => ({...state, videoIds: undefined}),
-  9: (state) => ({...state, app: undefined}),
-  // sorting bug in modue (will be fixed soon)
-  97: (state) => (state) => ({...state, videos: undefined})
-  
-};
+import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
+var {updatesAvailable, updateUserNotified, cacheStatusChange} = appActions;
+
+const manifest = {
+  100: (state) => ({...state, videos: undefined}),
+  101: (state) => ({...state, videoIds: undefined}),
+  102: (state) => ({...state, app: undefined}),
+  103: (state) => ({...state, navigation: undefined}),
+  106: (state) => ({...state, videos: undefined})
+};
+
 let reducerKey = 'migrations';
 
 const migration = createMigration(manifest, reducerKey);
@@ -45,7 +45,9 @@ const store = createStore(
           ),
     persistEnhancer
   );
-sagaMiddleware.run(sagaRoot);
+sagaMiddleware.run(appSaga);
+
+
 const history = syncHistoryWithStore(hashHistory, store);
 
 (function (appStore) {
@@ -64,7 +66,10 @@ const history = syncHistoryWithStore(hashHistory, store);
                 // have been added to the cache.
                 // It's the perfect time to display a 'New content is available; please refresh.'
                 // message in the page's interface.
-                console.log('New or updated content is available.');
+                if (__DEVTOOLS__) {
+                  console.log('New or updated content is available.');
+                }
+
                 appStore.dispatch(updatesAvailable(true));
                 appStore.dispatch(updateUserNotified(false));
               } else {
@@ -74,25 +79,35 @@ const history = syncHistoryWithStore(hashHistory, store);
                 appStore.dispatch(updatesAvailable(false));
                 appStore.dispatch(updateUserNotified(true));
                 appStore.dispatch(showFlashMessage('Content is now available offline!'));
-                console.log('Content is now available offline!');
+                if (__DEVTOOLS__) {
+                  console.log('Content is now available offline!');
+                }
               }
               break;
 
             case 'redundant':
-              console.error('The installing service worker became redundant.');
+              if (__DEVTOOLS__) {
+                console.error('The installing service worker became redundant.');
+              }
+              appStore.dispatch(updateUserNotified(true));
               break;
           }
         };
       };
     }).catch(function (e) {
-      console.error('Error during service worker registration:', e);
+      appStore.dispatch(updateUserNotified(true));
+      if (__DEVTOOLS__) {
+        console.error('Error during service worker registration:', e);
+      }
     });
   }
 })(store);
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
+if (__DEVTOOLS__) {
+  store.subscribe(() => {
+    console.log(store.getState());
+  });
+}
 
 const rootRoute = [
   {

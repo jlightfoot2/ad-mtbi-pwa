@@ -180,17 +180,12 @@ const formDefault = generateForm(
 export const forms = (state = formDefault,action) => {
   switch (action.type) {
     case FORM_FIELD_CHANGE:
-      console.log('CALLING: ' + FORM_FIELD_CHANGE);
       if (typeof state[action.field.formId] !== null &&
         typeof state[action.field.formId].fields[action.field.id].value !== 'undefined'){
-        console.log('UPDATING: ' + FORM_FIELD_CHANGE);
-      console.log(action.field);
         state[action.field.formId].fields[action.field.id].value = action.field.value;
         state[action.field.formId].fields[action.field.id].error = action.field.error;
         state[action.field.formId].fields[action.field.id] = {...state[action.field.formId].fields[action.field.id]};
         return {...state};
-      } else {
-        console.log('Field change missed');
       }
     case FORM_SUBMITTED:
       break;

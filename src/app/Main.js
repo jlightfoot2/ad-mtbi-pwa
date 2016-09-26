@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import {userSeesSplash, userSeesIntro} from './actions';
 import {push, replace} from 'react-router-redux';
 import { withRouter } from 'react-router';
-import DialogContainer from './DialogContainer';
+import {UpdateDialogContainer} from 'local-t2-app-redux/lib/components';
 
 import {deviceActions} from 'local-t2-device-redux';
 var {windowResize} = deviceActions;
@@ -66,7 +66,6 @@ class Main extends Component {
   }
 
   render () {
-    console.log(this.props);
     return (
         <div style={styles.wrapper}>
             <AppBar
@@ -78,7 +77,7 @@ class Main extends Component {
                 <div style={styles.content}>{React.cloneElement(this.props.children, { appBarTitle: this.handleTitle })}</div>
 
           <AppSnackBar />
-          <DialogContainer />
+          <UpdateDialogContainer />
         </div>
     );
   }
