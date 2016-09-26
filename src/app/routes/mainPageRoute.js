@@ -13,6 +13,7 @@ export default {
         require('./homeRoute.js').default,
         require('./videosRoute.js').default,
         require('./videoRoute.js').default,
+        require('./debugRoute.js').default,
         require('./libraryRoute.js').default,
         require('./assessmentRoute.js').default,
         require('./assessmentResultRoute.js').default

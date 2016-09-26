@@ -47,7 +47,6 @@ const store = createStore(
   );
 sagaMiddleware.run(appSaga);
 
-
 const history = syncHistoryWithStore(hashHistory, store);
 
 (function (appStore) {

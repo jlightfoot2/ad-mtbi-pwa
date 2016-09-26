@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router';
 class Library extends Component {
   componentDidMount () {
     this.props.appBarTitle && this.props.appBarTitle('mTBI Library');
@@ -59,6 +59,7 @@ Each year in the United States, 235 000 people experience a traumatic brain inju
           </p>
           <p>
             The Glasgow Coma Scale (GCS) (Teasdale and Jennett 1974) is the most widely known system for injury severity classification in the acute injury period, and is useful when performed properly in that context. The American Congress of Rehabilitation Medicine (ACRM) (1993) definition of mild traumatic brain injury may be of greater use to clinicians attempting to determine after-the-fact whether an event experienced by an individual is characterized fairly as a mild TBI, particularly when GCS scores are unavailable or invalid. This definition states that any one of the following symptoms following external application of force to the brain reflects an injury of severity sufficient to merit classification as a mild TBI: any period of loss of consciousness, any loss of memory for events immediately before (retrograde amnesia) or after (anterograde amnesia) the accident (collectively referred to as the period of post-traumatic amnesia, or PTA), any alteration in mental state at the time of the accident (eg, feeling dazed, disoriented, or confused), or focal neurologic deficit(s) that may or may not be transient. The ACRM definition of mild TBI includes only those injuries in which loss of consciousness is 30 minutes or less, the GCS score at 30 minutes after injury is 13–15, and the duration of PTA is no longer than 24 hours. Injuries exceeding these criteria are considered to be of more than mild severity. Although these criteria are not without criticism (Ruff and Jurica 1999; Arciniegas and Silver 2001), they are at present the most widely accepted definition of mild TBI. In the absence of another universally accepted minimum criteria set for this condition, the authors recommend using these criteria to determine whether an event experienced by a patient is characterized fairly as a TBI.
+            <Link to="main/debug">Debug Test</Link>
           </p>
   </div>
     );

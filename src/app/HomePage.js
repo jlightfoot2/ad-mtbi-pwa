@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {GridList, GridTile} from 'material-ui/GridList';
 
 import Subheader from 'material-ui/Subheader';
-import { Link, browserHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { toggleT2AppFromMyList, addT2AppsToMyApps ,showFlashMessage} from './actions';
 import { List, Map } from 'immutable';
