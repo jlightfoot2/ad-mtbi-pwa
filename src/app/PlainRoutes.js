@@ -29,7 +29,7 @@ const manifest = {
   103: (state) => ({...state, navigation: undefined}),
   106: (state) => ({...state, videos: undefined}),
   108: (state) => ({...state, app: undefined}),
-  109: (state) => ({...state, videos: undefined})
+  111: (state) => ({...state, videos: undefined})
 };
 
 let reducerKey = 'migrations';
@@ -73,6 +73,7 @@ const history = syncHistoryWithStore(hashHistory, store);
 
                 appStore.dispatch(updatesAvailable(true,'new content'));
                 appStore.dispatch(updateUserNotified(false));
+                appStore.dispatch(cacheStatusChange(true));
               } else {
                 // At this point, everything has been precached.
                 // It's the perfect time to display a 'Content is cached for offline use.' message.
