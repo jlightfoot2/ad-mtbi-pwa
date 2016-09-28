@@ -61,17 +61,17 @@ const config = {
         staticFileGlobs: [
           'build/manifest.json',
           'build/**/*.{html,css,js}',
-          'build/static/**/*.{png,jpg,jpeg,svg,gif,mp4,json}'
+          'build/static/**/*.{png,jpg,jpeg,svg,gif,json}'
         ],
         runtimeCaching: [
           {
             handler: 'cacheFirst',
             urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg)$/i
-          },
+          }/*,
           {
             handler: 'networkFirst',
             urlPattern: /dynamic\/[\w_-]+\.(mp4|mp3)$/i
-          }
+          }*/
         ],
         'stripPrefix': 'build/'
       }
