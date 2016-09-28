@@ -23,7 +23,7 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       },
-      '__DEVTOOLS__': true
+      '__DEVTOOLS__': false
     }),
     new webpack.optimize.CommonsChunkPlugin({
       children: true, // Look for common dependencies in all children,
