@@ -311,7 +311,6 @@ self.addEventListener('fetch', function(event) {
 // Runtime cache configuration, using the sw-toolbox library.
 
 toolbox.router.get(/dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg)$/i, toolbox.cacheFirst, {});
-toolbox.router.get(/dynamic\/[\w_-]+\.(mp4|mp3)$/i, toolbox.networkFirst, {});
 
 
 
