@@ -26,7 +26,7 @@ export default {
   },
   '4': {
     id: '4',
-    name: 'PTS Library',
+    name: 'Library',
     routes: ['/main/library'],
     pathname: '/main/library',
     level: 1,

@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import appHub from './reducers';
 import {showFlashMessage} from './actions';
-import {appActions, appSaga} from 'local-t2-app-redux';
+import {appActions, appSaga, registerPromise} from 'local-t2-app-redux';
 
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
@@ -29,7 +29,8 @@ const manifest = {
   103: (state) => ({...state, navigation: undefined}),
   106: (state) => ({...state, videos: undefined}),
   108: (state) => ({...state, app: undefined}),
-  109: (state) => ({...state, videos: undefined})
+  112: (state) => ({...state, videos: undefined}),
+  113: (state) => ({...state, navigation: undefined})
 };
 
 let reducerKey = 'migrations';
@@ -51,60 +52,10 @@ sagaMiddleware.run(appSaga);
 
 const history = syncHistoryWithStore(hashHistory, store);
 
-(function (appStore) {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./ad-service-worker.js').then(function (reg) {
-      reg.onupdatefound = function () {
-        // The updatefound event implies that reg.installing is set; see
-        // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
-        var installingWorker = reg.installing;
-
-        installingWorker.onstatechange = function () {
-          switch (installingWorker.state) {
-            case 'installed':
-              if (navigator.serviceWorker.controller) {
-                // At this point, the old content will have been purged and the fresh content will
-                // have been added to the cache.
-                // It's the perfect time to display a 'New content is available; please refresh.'
-                // message in the page's interface.
-                if (__DEVTOOLS__) {
-                  console.log('New or updated content is available.');
-                }
-
-                appStore.dispatch(updatesAvailable(true,'new content'));
-                appStore.dispatch(updateUserNotified(false));
-              } else {
-                // At this point, everything has been precached.
-                // It's the perfect time to display a 'Content is cached for offline use.' message.
-                appStore.dispatch(cacheStatusChange(true));
-                appStore.dispatch(updatesAvailable(false,'avail offline'));
-                appStore.dispatch(updateUserNotified(true));
-                appStore.dispatch(showFlashMessage('Content is now available offline!'));
-                if (__DEVTOOLS__) {
-                  console.log('Content is now available offline!');
-                }
-              }
-              break;
-
-            case 'redundant':
-              if (__DEVTOOLS__) {
-                console.error('The installing service worker became redundant.');
-              }
-              appStore.dispatch(updateUserNotified(true));
-              appStore.dispatch(updatesAvailable(false,'redundant'));
-              break;
-          }
-        };
-      };
-    }).catch(function (e) {
-      appStore.dispatch(updateUserNotified(true));
-      appStore.dispatch(updatesAvailable(false,' catch'));
-      if (__DEVTOOLS__) {
-        console.error('Error during service worker registration:', e);
-      }
-    });
-  }
-})(store);
+if ('serviceWorker' in navigator) {
+  const registrationPromise = navigator.serviceWorker.register('./ad-service-worker.js');
+  registerPromise(registrationPromise, store);
+}
 
 if (__DEVTOOLS__) {
   store.subscribe(() => {

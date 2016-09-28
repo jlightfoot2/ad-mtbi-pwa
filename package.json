@@ -47,7 +47,7 @@
     "install": "^0.8.1",
     "is-online": "^5.1.2",
     "json-loader": "^0.5.4",
-    "local-t2-app-redux": "0.0.29",
+    "local-t2-app-redux": "0.0.30",
     "local-t2-device-redux": "0.0.5",
     "local-t2-navigation-redux": "0.0.3",
     "localforage": "^1.4.2",
