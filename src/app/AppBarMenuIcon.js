@@ -13,7 +13,7 @@ const AppBarMenuIcon = ({paths, submenu, parent}) => {
     if (parent) {
       return (<Link to={parent.pathname}><IconButton><ArrowBack /></IconButton></Link>);
     }
-    return (<Link to="/home"><IconButton><ArrowBack /></IconButton></Link>);
+    return (<Link to="/main/home"><IconButton><ArrowBack /></IconButton></Link>);
   } else {
     return (
       <IconMenu
