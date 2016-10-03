@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import appHub from './reducers';
 import {showFlashMessage} from './actions';
-import {appActions, appSaga, registerPromise} from 'local-t2-app-redux';
+import {appSaga, registerPromise} from 'local-t2-app-redux';
 
 import thunkMiddleware from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist';
@@ -20,7 +20,6 @@ import createMigration from 'redux-persist-migrate';
 import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware();
-var {updatesAvailable, updateUserNotified, cacheStatusChange} = appActions;
 
 const manifest = {
   100: (state) => ({...state, videos: undefined}),
@@ -29,8 +28,7 @@ const manifest = {
   103: (state) => ({...state, navigation: undefined}),
   106: (state) => ({...state, videos: undefined}),
   108: (state) => ({...state, app: undefined}),
-  112: (state) => ({...state, videos: undefined}),
-  113: (state) => ({...state, navigation: undefined})
+  114: (state) => ({...state, videos: undefined})
 };
 
 let reducerKey = 'migrations';
@@ -54,7 +52,16 @@ const history = syncHistoryWithStore(hashHistory, store);
 
 if ('serviceWorker' in navigator) {
   const registrationPromise = navigator.serviceWorker.register('./ad-service-worker.js');
-  registerPromise(registrationPromise, store);
+  registerPromise(registrationPromise, store).then(function (res) {
+    if (__DEVTOOLS__) {
+      console.log(res);
+    }
+  }).catch(function (e) {
+    if (__DEVTOOLS__) {
+      console.log(e);
+    }
+    throw e;
+  });
 }
 
 if (__DEVTOOLS__) {
