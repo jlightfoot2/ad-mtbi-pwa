@@ -31,7 +31,8 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      '__DEVTOOLS__': true
+      '__DEVTOOLS__': true,
+      '__INCLUDE_SERVICE_WORKER__': false
     }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
